@@ -1,13 +1,19 @@
 [tool.poetry]
 name = "rentradar"
 version = "0.1.0"
-description = ""
+description = "A tool for comparing local housing rents and evaluating market value fairness."
 authors = ["twt6xy <twt6xy@virginia.edu>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pandas = "^2.2.1"
+numpy = "^1.26.4"
+requests = "^2.31.0"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
 
 [build-system]
 requires = ["poetry-core"]
