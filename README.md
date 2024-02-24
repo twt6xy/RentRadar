@@ -69,3 +69,61 @@ This project requires certain environment variables to be set for its proper ope
     ```
 
    Replace `your_api_key` with the actual API key you obtained from RentCast.
+
+## Contributing
+
+Before making your changes, please create a feature branch off the main branch. This isolates your changes and makes it easier to review and merge them into the main project. Here's how you can create and switch to a feature branch:
+
+1. Ensure you're on the main branch and your local repository is up to date:
+
+    ```bash
+    git checkout main
+    git pull origin main
+    ```
+2. Create a new branch named after the feature you're working on:
+
+    ```bash
+    git checkout -b feature/<your_feature_name>
+    ```
+
+3. With your feature branch checked out, you can make your changes to the project. After making changes, stage and commit them:
+
+    ```bash
+    git add .
+    git commit -m "<Describe your changes here>"
+    ```
+
+    This will trigger the pre-commit hooks, if any hooks fail:
+
+    - You will need to resolve the failures as indicated by the hook's output.
+    - Even for hooks that automatically fix issues (e.g., `trailing-whitespace`, `end-of-file-fixer`), you must stage the auto-corrected files again since the hooks modify the files after staging.
+
+4. Once your changes are ready and all pre-commit hooks pass, push your feature branch to the remote repository:
+
+    ```bash
+    git push origin feature/<your_feature_name>
+    ```
+5. Go to the project's GitHub page. You should see an option to "Compare & pull request" for your newly pushed branch. Click it to open a new pull request (PR).
+
+6. Fill in the PR form with a clear title and description of your changes. Explain the purpose of your changes and any other relevant information that would help the reviewers.
+
+7. Submit the pull request. Your PR will be reviewed by the project maintainers.
+
+8. Once your pull request has been approved and merged into the main branch, you can pull the changes to your local main branch.
+
+    ```bash
+    git checkout main
+    git pull origin main
+    ```
+
+9. Delete your feature branch if it's no longer needed, both locally and on the remote repository:
+
+    - Delete the branch locally:
+      ```bash
+      git branch -d feature/<your_feature_name>
+      ```
+
+    - Delete the branch from the remote repository:
+      ```bash
+      git push origin --delete feature/<your_feature_name>
+      ```
