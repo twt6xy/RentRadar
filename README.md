@@ -4,7 +4,7 @@
 
 Before setting up the project, ensure you have Poetry installed. If you do not have Poetry installed, follow the installation instructions on the [official Poetry website](https://python-poetry.org/docs/#installation).
 
-### Installing the Project
+### Development Environment
 
 1. **Clone the Repository**
 
@@ -49,8 +49,23 @@ Before setting up the project, ensure you have Poetry installed. If you do not h
     - **`pytest`**: Runs your project's test suite with Pytest, ensuring that all tests pass before a commit is finalized. This hook helps catch and prevent errors in code functionality. Any files prefixed with `test_`, and any functions within those files prefixed with `test_` in the `tests` directory will be run.
 
     <br>
-    After installing the hooks, they will run automatically on files staged for commit. If any hook reports errors, the commit will be blocked until the issues are resolved. It's also important to keep your pre-commit hooks up to date. You can update the hooks to their latest versions with the following command:
+    After installing the hooks, they will run automatically on files staged for commit. If any hook reports errors, the commit will be blocked until the issues are resolved. Run the following command to verify the hooks have been installed correctly.
 
     ```bash
-    poetry run pre-commit autoupdate
+    poetry run pre-commit run
     ```
+
+### Environment Variables
+
+This project requires certain environment variables to be set for its proper operation. Specifically, you will need an API access key from RentCast to access rental market data.
+
+1. Visit [RentCast](https://www.rentcast.io/) and sign up for an account or log in if you already have one.
+2. Navigate to the API section and follow the instructions to obtain your API access key.
+3. In the root directory, create a file named `.env`.
+4. Open the `.env` file in a text editor and add the following line:
+
+    ```
+    RENTCAST_API_KEY=<your_api_key>
+    ```
+
+   Replace `your_api_key` with the actual API key you obtained from RentCast.
