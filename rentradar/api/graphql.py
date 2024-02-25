@@ -19,7 +19,7 @@ from .schema import (
     TaxAssessment,
 )
 
-DB_PATH = "db/rentradar.db"
+DB_PATH = "rentradar/db/rentradar.db"
 
 
 @strawberry.type
