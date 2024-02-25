@@ -86,6 +86,20 @@ class DuckDBManager:
         """
         return self.execute_query("SHOW TABLES")
 
+    def get_table_schema(self, table_name: str) -> pd.DataFrame:
+        """
+        Returns the schema of the specified table in the database.
+
+        Args:
+            table_name (str): The name of the table whose schema is to be retrieved.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the schema of the table, including
+                        column names and their data types.
+        """
+        query = f"PRAGMA table_info({table_name})"
+        return self.conn.execute(query).fetchdf()
+
     def close(self):
         """
         Closes the connection to the database.
