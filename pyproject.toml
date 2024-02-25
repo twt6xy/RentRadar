@@ -11,6 +11,8 @@ pandas = "^2.2.1"
 numpy = "^1.26.4"
 requests = "^2.31.0"
 duckdb = "^0.10.0"
+uvicorn = "^0.27.1"
+strawberry-graphql = {extras = ["debug-server"], version = "^0.219.2"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -20,6 +22,9 @@ pytest = "^8.0.1"
 isort = "^5.13.2"
 ruff = "^0.2.2"
 ipykernel = "^6.29.2"
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core"]

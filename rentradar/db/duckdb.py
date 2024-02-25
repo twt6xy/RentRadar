@@ -71,12 +71,12 @@ class DuckDBManager:
             )
             raise
 
-    def execute_query(self, query: str) -> pd.DataFrame:
-        """
-        Executes a SQL query on the database and returns the result.
-        """
+    def execute_query(self, query: str, params=None) -> pd.DataFrame:
         try:
-            result = self.conn.execute(query).fetchdf()
+            if params:
+                result = self.conn.execute(query, params).fetchdf()
+            else:
+                result = self.conn.execute(query).fetchdf()
             logger.info("Executed query: %s", query)
             return result
         except Exception as e:
@@ -115,3 +115,112 @@ class DuckDBManager:
         Allows the class to be used as a context manager.
         """
         self.close()
+
+
+class RentRadarQueryAgent(DuckDBManager):
+    """
+    Specialized DuckDBManager for the RentRadar application, facilitating specific queries on rentradar tables.
+    Simplifies data access by encapsulating SQL operations tailored to RentRadar's data model.
+    """
+
+    def get_all_properties(self) -> pd.DataFrame:
+        query = "SELECT * FROM properties"
+        return self.execute_query(query)
+
+    def get_property_by_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM properties WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_property_features_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_features WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_county_by_id(self, county_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM counties WHERE id = ?"
+        return self.execute_query(query, params=(county_id,))
+
+    def get_all_counties(self) -> pd.DataFrame:
+        query = "SELECT * FROM counties"
+        return self.execute_query(query)
+
+    def get_market_stats_by_zip(self, zipcode: int) -> pd.DataFrame:
+        query = "SELECT * FROM current_market_stats WHERE zipCode = ?"
+        return self.execute_query(query, params=(zipcode,))
+
+    def get_market_stats_by_bedrooms(self, bedrooms: int) -> pd.DataFrame:
+        query = "SELECT * FROM current_market_stats WHERE bedrooms = ?"
+        return self.execute_query(query, params=(bedrooms,))
+
+    def get_historic_market_stats_by_zip(self, zip_code: int) -> pd.DataFrame:
+        query = "SELECT * FROM historic_market_stats WHERE zipCode = ?"
+        return self.execute_query(query, params=(zip_code,))
+
+    def get_historic_market_stats_by_bedrooms(
+        self, bedrooms: int, zip_code: int
+    ) -> pd.DataFrame:
+        query = "SELECT * FROM historic_market_stats WHERE bedrooms = ? AND zipCode = ?"
+        return self.execute_query(query, params=(bedrooms, zip_code))
+
+    def get_long_term_rentals_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM long_term_rentals WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_all_long_term_rentals(self) -> pd.DataFrame:
+        query = "SELECT * FROM long_term_rentals"
+        return self.execute_query(query)
+
+    def get_owners_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_owners WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_properties_by_owner_id(self, owner_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_owners WHERE owner_id = ?"
+        return self.execute_query(query, params=(owner_id,))
+
+    def get_property_taxes_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_taxes WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_property_taxes_by_year(self, year: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_taxes WHERE year = ?"
+        return self.execute_query(query, params=(year,))
+
+    def get_property_taxes_by_property_id_and_year(
+        self, property_id: str, year: str
+    ) -> pd.DataFrame:
+        query = "SELECT * FROM property_taxes WHERE property_id = ? AND year = ?"
+        return self.execute_query(query, params=(property_id, year))
+
+    def get_property_type_by_id(self, type_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM property_types WHERE id = ?"
+        return self.execute_query(query, params=(type_id,))
+
+    def get_all_property_types(self) -> pd.DataFrame:
+        query = "SELECT * FROM property_types"
+        return self.execute_query(query)
+
+    def get_description_by_property_type(self, property_type: str) -> pd.DataFrame:
+        query = "SELECT description FROM property_types WHERE propertyType = ?"
+        return self.execute_query(query, params=(property_type,))
+
+    def get_sale_listings_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM sale_listings WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_all_sale_listings(self) -> pd.DataFrame:
+        query = "SELECT * FROM sale_listings"
+        return self.execute_query(query)
+
+    def get_tax_assessments_by_property_id(self, property_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM tax_assessments WHERE property_id = ?"
+        return self.execute_query(query, params=(property_id,))
+
+    def get_tax_assessment_by_id(self, assessment_id: str) -> pd.DataFrame:
+        query = "SELECT * FROM tax_assessments WHERE assessment_id = ?"
+        return self.execute_query(query, params=(assessment_id,))
+
+    def get_tax_assessment_by_property_id_and_year(
+        self, property_id: str, year: str
+    ) -> pd.DataFrame:
+        query = "SELECT * FROM tax_assessments WHERE property_id = ? AND year = ?"
+        return self.execute_query(query, params=(property_id, year))
