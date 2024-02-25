@@ -4,10 +4,7 @@ import pandas as pd
 
 class DuckDBManager:
     """
-    Manages a DuckDB database connection, offering utilities to create tables from pandas DataFrames or data files,
-    execute SQL queries, and list all tables within the database. This class simplifies the integration between
-    DuckDB's efficient data processing and Python's data analysis capabilities, enabling seamless data storage and
-    retrieval operations.
+    Manages a DuckDB database connection.
 
     The class provides methods to:
     - Create or connect to a DuckDB database at a specified path.
