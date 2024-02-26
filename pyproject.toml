@@ -13,6 +13,7 @@ requests = "^2.31.0"
 duckdb = "^0.10.0"
 uvicorn = "^0.27.1"
 strawberry-graphql = {extras = ["debug-server"], version = "^0.219.2"}
+starlette = "^0.37.1"
 
 
 [tool.poetry.group.dev.dependencies]
