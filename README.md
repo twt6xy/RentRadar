@@ -4,7 +4,7 @@ RentRadar is a comprehensive data platform for real estate market analysis, offe
 
 ## Setup
 
-Follow the guide below to setup your development environment.
+Follow the guide below to setup your development environment. Alternatively, if you prefer skipping the development environment setup and want to use Docker to access the GraphQL API, see the Getting Started section.
 
 ### Prerequisites
 
@@ -105,22 +105,56 @@ This modular architecture ensures RentRadar is not only a powerful tool for real
 
 ## Getting Started
 
-To get started with RentRadar, follow these steps to set up your development environment. After completing the setup, you can easily deploy the GraphQL server and access the RentRadar API.
+To get started with RentRadar, there are two pathways to set up your environment and access the GraphQL server: through direct environment setup for development or using Docker for ease of use without manual environment configuration.
 
-1. **Environment Setup**: Ensure you have followed the setup instructions detailed in the setup section. This includes installing dependencies via Poetry, and setting up the environment.
+### For Development Environment Setup
+
+1. **Environment Setup**: Ensure you have followed the setup instructions detailed earlier. This includes installing dependencies via Poetry, setting up the environment, and other necessary configurations.
 
 2. **Launch the GraphQL Server**:
-   - From the project root, run the following command to start the GraphQL server with `uvicorn`:
-     ```sh
-     uvicorn rentradar.api.deploy:app --reload
-     ```
-   - This command starts the server in development mode with hot reload enabled, allowing you to see changes in real-time without restarting the server manually.
+    - From the project root, execute the following command to start the GraphQL server:
+      ```sh
+      uvicorn rentradar.api.deploy:app --reload
+      ```
+    - This command initiates the server in development mode with hot reload enabled, allowing you to see changes in real-time without manually restarting the server.
 
 3. **Accessing the GraphQL API**:
-   - Once the server is running, you can access the GraphQL API interface by navigating to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your web browser.
-   - The GraphQL interface provides a playground where you can experiment with queries and mutations, explore the schema, and interact with your RentRadar data.
+    - With the server running, the GraphQL API interface is accessible by navigating to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your web browser.
+    - This interface provides a playground to experiment with queries and mutations, explore the schema, and interact with the RentRadar data.
 
-By following these steps, you'll have a local instance of the RentRadar GraphQL server running, ready for you to explore and utilize the real estate data it provides access to.
+### Using Docker
+
+If you prefer to avoid setting up a development environment, you can use Docker to build and run the RentRadar API without manual configuration.
+
+1. **Build the Docker Image**:
+    - Ensure Docker is installed on your system.
+    - From the project root, build your Docker image with the following command:
+      ```sh
+      docker build -t rentradar-api .
+      ```
+    This command creates an image named `rentradar-api`.
+
+2. **Run the Docker Container**:
+    - After the build completes, run your Docker container in the background using:
+      ```sh
+      docker run -d -p 8000:8000 --name rentradar-api-container rentradar-api
+      ```
+    - This command starts the container named `rentradar-api-container` in detached mode (`-d`), mapping port 8000 of the container to port 8000 on your host. The GraphQL server becomes accessible on your local machine.
+
+3. **Accessing the GraphQL API via Docker**:
+    - Navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your web browser to use the GraphQL playground and interact with the RentRadar data hosted within your Docker container.
+
+4. **Stopping the Container**:
+    - When you're done and wish to stop the running container, execute:
+      ```sh
+      docker stop rentradar-api-container
+      ```
+    This command will stop the `rentradar-api-container`. If you need to start it again, simply use:
+      ```sh
+      docker start rentradar-api-container
+      ```
+
+By following these steps, you'll have the RentRadar GraphQL server running in a Docker container, ready for you to access and explore the real estate data it provides, all without the need for a complex setup environment.
 
 ### GraphQL Server Interface
 
