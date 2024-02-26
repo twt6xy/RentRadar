@@ -804,7 +804,7 @@ tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
 name = "starlette"
-version = "0.36.3"
+version = "0.37.1"
 description = "The little ASGI library that shines."
 category = "main"
 optional = false
@@ -987,7 +987,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "2680253abde2a5ce4926ef2179551a61078a81cbe861605b2e6a4dc9e363873e"
+content-hash = "87de4320d2e3a4b4b2243b32d734d4cd863ff4cd0d8a048d67cc904acf9d016b"
 
 [metadata.files]
 anyio = [
@@ -1738,8 +1738,8 @@ stack-data = [
     {file = "stack_data-0.6.3.tar.gz", hash = "sha256:836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9"},
 ]
 starlette = [
-    {file = "starlette-0.36.3-py3-none-any.whl", hash = "sha256:13d429aa93a61dc40bf503e8c801db1f1bca3dc706b10ef2434a36123568f044"},
-    {file = "starlette-0.36.3.tar.gz", hash = "sha256:90a671733cfb35771d8cc605e0b679d23b992f8dcfad48cc60b38cb29aeb7080"},
+    {file = "starlette-0.37.1-py3-none-any.whl", hash = "sha256:92a816002d4e8c552477b089520e3085bb632e854eb32cef99acb6f6f7830b69"},
+    {file = "starlette-0.37.1.tar.gz", hash = "sha256:345cfd562236b557e76a045715ac66fdc355a1e7e617b087834a76a87dcc6533"},
 ]
 strawberry-graphql = [
     {file = "strawberry_graphql-0.219.2-py3-none-any.whl", hash = "sha256:6b26994bcf092714dbd6def4c69a36c279fbdbfdc2390fb6294728dd076ba863"},
