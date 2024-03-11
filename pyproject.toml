@@ -14,6 +14,9 @@ duckdb = "^0.10.0"
 uvicorn = "^0.27.1"
 strawberry-graphql = {extras = ["debug-server"], version = "^0.219.2"}
 starlette = "^0.37.1"
+plotly = "^5.19.0"
+scikit-learn = "^1.4.1.post1"
+matplotlib = "^3.8.3"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -23,6 +26,7 @@ pytest = "^8.0.1"
 isort = "^5.13.2"
 ruff = "^0.2.2"
 ipykernel = "^6.29.2"
+nbformat = "^5.9.2"
 
 [tool.isort]
 profile = "black"
