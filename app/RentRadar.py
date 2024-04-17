@@ -68,9 +68,9 @@ def main():
     with col3:
         st.markdown(
             """
-            <h3><a href="/Chat" target="_self">💬 Chat</a> (Coming Soon)</h3>
+            <h3><a href="/Chat" target="_self">💬 Chat</a></h3>
 
-            Engage in interactive conversations with our AI-powered chat assistant. Get instant answers to your real estate questions and receive personalized recommendations.
+            Query our database via natural language. Requires an OpenAI API key.
             """,
             unsafe_allow_html=True,
         )
