@@ -18,6 +18,7 @@ plotly = "^5.19.0"
 scikit-learn = "^1.4.1.post1"
 matplotlib = "^3.8.3"
 streamlit = "^1.33.0"
+pygwalker = "^0.4.8"
 
 
 [tool.poetry.group.dev.dependencies]
