@@ -20,14 +20,14 @@ class DuckDBManager:
         conn (duckdb.DuckDBPyConnection): The connection object to the DuckDB database.
     """
 
-    def __init__(self, db_path: str):
+    def __init__(self, db_path: str) -> None:
         """
         Initializes or connects to a DuckDB database at the specified path.
         """
         self.db_path = db_path
         self.conn = duckdb.connect(database=self.db_path, read_only=False)
 
-    def open_connection(self):
+    def open_connection(self) -> None:
         """
         Opens a connection to the DuckDB database.
         """
@@ -38,7 +38,7 @@ class DuckDBManager:
             logger.error("Failed to connect to DuckDB database: %s", e)
             raise
 
-    def table_from_dataframe(self, df: pd.DataFrame, table_name: str):
+    def table_from_dataframe(self, df: pd.DataFrame, table_name: str) -> None:
         """
         Creates a table in the DuckDB database from a pandas DataFrame.
         """
@@ -51,7 +51,7 @@ class DuckDBManager:
 
     def table_from_file(
         self, file_path: str, table_name: str, file_format: str = "csv"
-    ):
+    ) -> None:
         """
         Creates a table in the database from a file.
         """
@@ -96,7 +96,35 @@ class DuckDBManager:
         query = f"PRAGMA table_info({table_name})"
         return self.conn.execute(query).fetchdf()
 
-    def close(self):
+    def get_database_schema(self) -> pd.DataFrame:
+        """
+        Returns the schema of all tables in the database as a DataFrame, grouped by table names,
+        showing only the column names and their types.
+        """
+        try:
+            tables = self.list_tables()["name"].tolist()
+            schema_data = []
+            for table_name in tables:
+                table_schema = self.get_table_schema(table_name)
+                table_schema["table_name"] = table_name
+                schema_data.append(table_schema)
+
+            schema_df = pd.concat(schema_data, ignore_index=True)
+            schema_df = schema_df[["table_name", "name", "type"]]
+
+            schema_df = schema_df.groupby("table_name").apply(
+                lambda x: x.reset_index(drop=True)
+            )
+            schema_df.index.names = ["table_name", "column_index"]
+            schema_df = schema_df.drop("table_name", axis=1)
+
+            logger.info("Retrieved database schema as DataFrame")
+            return schema_df
+        except Exception as e:
+            logger.error("Failed to retrieve database schema as DataFrame: %s", e)
+            raise
+
+    def close(self) -> None:
         """
         Closes the connection to the database.
         """
@@ -104,13 +132,13 @@ class DuckDBManager:
             self.conn.close()
             logger.info("Database connection closed.")
 
-    def __enter__(self):
+    def __enter__(self) -> "DuckDBManager":
         """
         Allows the class to be used as a context manager.
         """
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
         """
         Allows the class to be used as a context manager.
         """
