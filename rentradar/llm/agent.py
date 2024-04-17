@@ -9,7 +9,7 @@ from rentradar.llm.templates import rr_template
 
 
 class RentRadarLLMAgent:
-    def __init__(self, db_uri: str):
+    def __init__(self, db_uri: str, openai_api_key: str):
         """
         Initializes the RentRadar LLM Agent with connection to the DuckDB database.
 
@@ -17,9 +17,12 @@ class RentRadarLLMAgent:
             db_uri (str): URI to connect to the DuckDB database.
         """
         self.db = SQLDatabase.from_uri(db_uri, sample_rows_in_table_info=3)
-        self.toolkit = SQLDatabaseToolkit(db=self.db, llm=OpenAI(temperature=0))
+        self.toolkit = SQLDatabaseToolkit(
+            db=self.db,
+            llm=OpenAI(openai_api_key=openai_api_key, temperature=0),
+        )
         self.agent_executor = create_sql_agent(
-            llm=OpenAI(temperature=0),
+            llm=OpenAI(openai_api_key=openai_api_key, temperature=0),
             toolkit=self.toolkit,
             verbose=True,
             agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
@@ -38,4 +41,4 @@ class RentRadarLLMAgent:
         """
         formatted_prompt = self.prompt_template.format(query=query)
         result = self.agent_executor.invoke(formatted_prompt)
-        return result
+        return result["output"]
