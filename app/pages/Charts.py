@@ -36,6 +36,7 @@ def render_sql_query_explorer(db_manager: DuckDBManager):
 
 
 def main():
+    st.set_page_config(page_title="RentRadar - Charts", layout="wide")
     st.sidebar.markdown("# Explore 📈")
     st.title("📊 RentRadar Chart Builder 📈")
 
