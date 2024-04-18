@@ -1,6 +1,6 @@
-# RentRadar
+# RentRadar 🏘️
 
-RentRadar is a comprehensive data platform for real estate market analysis, offering an array of modules for data ingestion, database management, and API access to real estate data.
+[RentRadar](https://rentradar.streamlit.app/) is a comprehensive data platform for real estate market analysis, offering an array of modules for data ingestion, database management, API access to real estate data.
 
 ## Setup
 
